@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Garage Door</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <META HTTP-EQUIV="Expires" CONTENT="-1">
+    <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <style>
+    </style>
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="assets/css/jquery.confirmon.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="Raspi-144x144.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="Raspi-114x114.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="Raspi-72x72.png">
+    <link rel="apple-touch-icon-precomposed" href="Raspi-57.png">
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+  </head>
+
+  <body>
+
+    <div class="container" align="center">
+
+        <!-- <h1>Garage Door Control</h1>  -->
+        <h2>Door Control</h2>
+        <div id="controlPanel" style="display:none;">
+          <button id="doorSwitch1" class="btn btn-large btn-primary">Door 1 Closed</button><br><br>
+          <button id="doorSwitch2" class="btn btn-large btn-primary">Door 2 Closed</button><br><br>
+          <button id="doorSwitch3" class="btn btn-large btn-primary">Door 3 Closed</button><br><br>
+        </div>
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/jquery.confirmon.js"></script>
+
+    <script type="text/javascript">
+
+      $(document).ready(function () {
+        // This is the init function
+        // Runs when the page has completed loading
+
+        $('#controlPanel').show();
+		
+           $.ajax({
+              url: "ds1.php",
+              success: function (data) { 
+                if(data == 1 )
+                {
+                  $('#doorSwitch1').css({"background-image":"linear-gradient(to bottom, #880000, #ff0000)"});
+                  $('#doorSwitch1').css({"background-color":"#ff0000"});
+                  $('#doorSwitch1').text("Door 1 Open");
+                }
+                 else
+                 {
+                  $('#doorSwitch1').css({"background-image":"linear-gradient(to bottom, #008800, #00ff00)"});
+                  $('#doorSwitch1').css({"background-color":"#00ff00"});
+                  $('#doorSwitch1').text("Door 1 Closed");
+               } 
+              }
+              });
+           $.ajax({
+              url: "ds2.php",
+              success: function (data) { 
+                if(data == 1 )
+                {
+                  $('#doorSwitch2').css({"background-image":"linear-gradient(to bottom, #880000, #ff0000)"});
+                  $('#doorSwitch2').css({"background-color":"#ff0000"});
+                  $('#doorSwitch2').text("Door 2 Open");
+                }
+                 else
+                 {
+                  $('#doorSwitch2').css({"background-image":"linear-gradient(to bottom, #008800, #00ff00)"});
+                  $('#doorSwitch2').css({"background-color":"#00ff00"});
+                  $('#doorSwitch2').text("Door 2 Closed");
+               }
+              }
+              });
+           $.ajax({
+              url: "ds3.php",
+              success: function (data) { 
+                if(data == 1 )
+                {
+                  $('#doorSwitch3').css({"background-image":"linear-gradient(to bottom, #880000, #ff0000)"});
+                  $('#doorSwitch3').css({"background-color":"#ff0000"});
+                  $('#doorSwitch3').text("Door 3 Open");
+                }
+                 else
+                 {
+                  $('#doorSwitch3').css({"background-image":"linear-gradient(to bottom, #008800, #00ff00)"});
+                  $('#doorSwitch3').css({"background-color":"#00ff00"});
+                  $('#doorSwitch3').text("Door 3 Closed");
+               }
+              }
+              });
+
+
+	$('#doorSwitch1').confirmOn('click', function(e, confirmed) {
+                if(confirmed) {
+		$.ajax({
+			url: "square1.php",
+		});
+                }
+	});
+
+	$('#doorSwitch2').confirmOn('click', function(e, confirmed) {
+                if(confirmed) {
+		$.ajax({
+			url: "square2.php",
+		});
+                }
+	});
+	$('#doorSwitch3').confirmOn('click', function(e, confirmed) {
+                if(confirmed) {
+		$.ajax({
+			url: "square3.php",
+		});
+                }
+	});
+    });
+    {
+    myDate = new Date();
+    document.write((myDate.getMonth() + 1) + "/" + myDate.getDate() + " " + myDate.getHours() + ":" + myDate.getMinutes() + ":" + myDate.getSeconds()); }
+    </script>
+
+  </body>
+</html>
